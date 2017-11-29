@@ -22,7 +22,7 @@ void polowanie(){
     pthread_mutex_lock(&lock);
     if (mysliwy_rzut > zwierz_rzut) {
         zwierzyna++;
-        printf("Udane polowanie +1 <zwierzyna {%d}>\n", zwierzyna);
+        printf("Udane polowanie (Z) +1 <zwierzyna {%d}>\n", zwierzyna);
     }
     pthread_mutex_unlock(&lock);
 
@@ -35,7 +35,7 @@ void pieczenie(){
         zwierzyna--;
         int kucharz_rzut = kostka_rzut();
         pozywienie += kucharz_rzut;
-        printf("Udane pieczenie +%d <pozywienie {%d}>\n", kucharz_rzut, pozywienie);
+        printf("Udane pieczenie (P) +%d <pozywienie {%d}>\n", kucharz_rzut, pozywienie);
     }
     pthread_mutex_unlock(&lock);
 }
