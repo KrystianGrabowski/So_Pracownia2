@@ -11,9 +11,9 @@ int kostka_rzut(){
 }
 
 void polowanie(){
+
     int mysliwy_rzut = kostka_rzut();
     int zwierz_rzut = kostka_rzut();
-
 
     if (mysliwy_rzut > zwierz_rzut) {
         zwierzyna++;
@@ -22,6 +22,7 @@ void polowanie(){
 }
 
 void pieczenie(){
+
     if (zwierzyna > 0){
         zwierzyna--;
         int kucharz_rzut = kostka_rzut();
@@ -60,10 +61,32 @@ void *kucharz(void*){
 
 int main(int argc, char* argv[]){
 
+    int k, m;
+    
+    srand( time( NULL ) );
     mysliwi = atoi(argv[1]);
     kucharze = atoi(argv[2]);
     zwierzyna = atoi(argv[3]);
     pozywienie = atoi(argv[4]);
+
+    pthread_t tab_k[kucharze];
+    pthread_t tab_m[mysliwi];
+
+    for (k = 0; k < kucharze; k++){
+        pthread_create(&tab_k[k], NULL, &kucharz, NULL);
+    }
+    for (m = 0; m < mysliwi; m++){
+        pthread_create(&tab_m[m], NULL, &mysliwy, NULL);
+    }
+
+    for (k = 0; k < kucharze; k++){
+        pthread_join(tab_k[k], NULL);
+    }
+    for (m = 0; m < kucharze; m++){
+        pthread_join(tab_m[m], NULL);
+    }
+    std::cout << pozywienie;
+
 
 
 
