@@ -48,7 +48,7 @@ void *mysliwy(void*){
         if (pozywienie > 0){
             pozywienie--;
             pthread_mutex_unlock(&lock);
-            sleep(1);
+            usleep(500);
         }
         else{
             printf("Mysliwy odszedl z wioski !!\n");
@@ -70,7 +70,7 @@ void *kucharz(void*){
         if (pozywienie > 0 ){
             pozywienie--;
             pthread_mutex_unlock(&lock);
-            sleep(1);
+            usleep(500);
         }
         else{
             printf("Kucharz odszedl z wioski !!\n");
@@ -107,11 +107,11 @@ int main(int argc, char* argv[]){
     for (k = 0; k < kucharze; k++){
         pthread_join(tab_k[k], NULL);
     }
-    for (m = 0; m < kucharze; m++){
+    for (m = 0; m < mysliwi; m++){
         pthread_join(tab_m[m], NULL);
     }
     pthread_mutex_destroy(&lock);
-    printf("\n\n Podsumowanie :\n ocalali = %d \n pozywnie = %d\n", ocalali, pozywienie);
+    printf("\nPodsumowanie :\n ocalali = %d \n pozywnie = %d\n", ocalali, pozywienie);
 
     return 0;
 }
