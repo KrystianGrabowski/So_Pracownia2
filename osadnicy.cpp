@@ -33,7 +33,9 @@ void pieczenie(){
     pthread_mutex_lock(&lock);
     if (zwierzyna > 0){
         zwierzyna--;
+        pthread_mutex_unlock(&lock);
         int kucharz_rzut = kostka_rzut();
+        pthread_mutex_lock(&lock);
         pozywienie += kucharz_rzut;
         printf("Udane pieczenie (P) +%d <pozywienie {%d}>\n", kucharz_rzut, pozywienie);
     }
