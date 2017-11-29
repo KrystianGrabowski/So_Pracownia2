@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <unistd.h>
 
 int mysliwi, kucharze, zwierzyna, pozywienie;
 
@@ -30,6 +31,14 @@ void pieczenie(){
 
 void *mysliwy(void*){
     for (int dzien = 1; dzien <= 365; dzien++){
+        polowanie();
+
+        if (pozywienie > 0){
+            pozywienie--;
+            sleep(1);
+        }
+        else
+            break;
 
     }
     return 0;
@@ -37,7 +46,14 @@ void *mysliwy(void*){
 
 void *kucharz(void*){
     for (int dzien = 1; dzien <= 365; dzien++){
+        pieczenie();
 
+        if (pozywienie > 0 ){
+            pozywienie--;
+            sleep(1);
+        }
+        else
+            break;
     }
     return 0;
 }
@@ -48,5 +64,7 @@ int main(int argc, char* argv[]){
     kucharze = atoi(argv[2]);
     zwierzyna = atoi(argv[3]);
     pozywienie = atoi(argv[4]);
+
+
 
 }
